@@ -1,0 +1,23 @@
+<%- include('../../partials/header.ejs') %>
+<%- include('../../partials/navbar.ejs') %>
+<body>
+    <div class="container">
+        <hr>
+        <div class="card mt-5">
+            <div class="card-header">
+                <h2>Criação de usuarios</h2>
+            </div>
+            <div class="card-body">
+                <% users.forEach(user => { %>
+                <form action="/admin/users/save/update" method="POST">
+                    <input type="email" name="email" value="<%=user.email%>" class="form-control" autocomplete="off"><br>
+                    <input type="password" name="password" class="form-control" placeholder="*****" autocomplete="off"><br>
+                    <input type="hidden" name="id" value="<%= user.id %>">
+                    <button class="btn btn-dark" type="submit" style="width: 8rem;">Cadastrar</button>
+                </form>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</body>
+<%- include('../../partials/footer.ejs') %>

@@ -1,0 +1,29 @@
+<%- include('./partials/header.ejs') %>
+<%- include('./partials/homenavbar.ejs') %>
+<body>
+    <br>
+    <div class="container">
+        <% for(var i = 0; i<articles.length; i++) {%>
+            <div class="card">
+                <div class="card-header">
+                    <h4><%= articles[i].title %></h4>
+                </div>
+                <div class="card-body">
+                    <a href="/<%= articles[i].slug %>" class="btn btn-dark">Ler artigo</a>
+                </div>
+            </div>
+            <br>
+        <% } %>
+
+        <!-- Aqui a baixo está sendo linkado o sistema de paginção que foi criada. -->
+        <div class="row">
+            <div class="col col-12">
+                <a style="float: right;" href="/articles/pagination/2"> Next -> </a>
+                <!-- O link está apontando para a url onde foi criada paginação, o 1 deve-se estar presente pq somamos + 1 toda vez que passamos de pagina -->
+            </div>
+        </div>
+        <hr>
+    </div>
+    <br>
+</body>
+<%- include('./partials/footer.ejs') %>

@@ -1,0 +1,58 @@
+<%- include('../../partials/header.ejs') %>
+<%- include('../../partials/navbar.ejs') %>
+<body>
+    <br><br>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h1>Atualizar artigo</h1>
+            </div>
+            <br>
+            <div class="card-body">
+                <form method="POST" action="/articles/update">
+                    <input type="text" class="form-control" name="title" placeholder="Defina o titulo do artigo" value="<%= article.title %>"><br>
+                    <input type="hidden" name="article_id" value="<%= article.id %>">
+                    <textarea id="article" placeholder="Digite o artigo aqui!" class="form-control" name="body"><%= article.text %></textarea><br>
+                    <label>Escolha a categoria</label>
+                    <select name="categoria" class="form-control">
+                        <% categories.forEach(category => { %>
+                            <% if(category.id == article.categoryId){ %>
+                                <option value="<%= category.id %>" selected><%= category.title %></option>
+                            <% }else { %>
+                                <option value="<%= category.id %>"><%= category.title %></option>
+                            <% } %>
+                        <% }) %>
+                    </select><br>
+                    <input type="hidden" value="">
+                    <button type="submit" class="btn btn-dark">Atualizar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<%- include('../../partials/footer.ejs') %>
+<script src="/tinymce/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        language: 'pt_BR',
+        selector: 'textarea#article',  // change this value according to your HTML
+        plugins: [
+                'advlist',
+                'autolink',
+                'link',
+                'image',
+                'lists',
+                'preview',
+                'searchreplace',
+                'wordcount',
+                'fullscreen',
+                'insertdatetime',
+                'media',
+                'save',
+                'table',
+                'emoticons',
+                ],
+        a_plugin_option: true,
+        a_configuration_option: 400
+    });
+</script>

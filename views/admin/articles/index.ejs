@@ -1,0 +1,52 @@
+<%- include('../../partials/header.ejs') %>
+<%- include('../../partials/navbar.ejs') %>
+<body>
+    <div class="container">
+        <hr>
+        <h1>Artigos</h1>
+        <a class="btn btn-dark" href="/articles/new">Criar novo Artigo</a>
+        <hr>
+        <table class="table table-bordered">
+            <thead style="text-align: center;">
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Slug</th>
+                    <th>Category</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody style="text-align: center;">
+                <% articles.forEach(article => { %>
+                <tr>
+                    <td><%= article.id %></td>
+                    <td><%= article.title %></td>
+                    <td><%= article.slug %></td>
+                    <td><%= article.category.title %></td>
+                    <td class="buttons-contein">
+                        <form action="/articles/edit/<%=article.id%>" style="display: inline;">
+                            <button class="btn btn- alert-info">Editar</button>
+                        </form>
+                        <form action="/articles/delete" method="POST" style="display: inline;" onsubmit="seguranca(event, this)">
+                            <!-- O this serve para armazenar todas as informações de onde ele foi declarado, no caso aqui ele está contendo as informações do formulario -->
+                            <input type="hidden" name="id" value="<%= article.id %>">
+                            <button class="btn btn- alert-danger">Deletar</button>
+                        </form>
+                    </td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</body>
+<%- include('../../partials/footer.ejs') %>
+<script>
+    // Está função serve como segurança quando o usuario deseja deletar algo.
+    function seguranca(event, form){
+        event.preventDefault() // Intercepta o envio das informações ate a função
+        var decision = confirm('Você realmente deseja deletar este Artigo?') // Mostramos uma mensagem de condirmação para deletar a categoria
+        if(decision){
+            form.submit() // aqui enviamos as informações para a url para que possa ser deletada
+        }
+    }
+</script>

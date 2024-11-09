@@ -1,0 +1,53 @@
+<%- include('../../partials/header.ejs') %>
+<%- include('../../partials/navbar.ejs') %>
+<body>
+    <br><br>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h1>Novo artigo</h1>
+            </div>
+            <br>
+            <div class="card-body">
+                <form method="POST" action="/articles/save">
+                    <input type="text" class="form-control" name="title" placeholder="Defina o titulo do artigo"><br>
+                    <textarea id="article" name="body" placeholder="Digite o artigo aqui!" class="form-control"></textarea><br>
+                    <label>Escolha a categoria</label>
+                    <select name="categoria" class="form-control">
+                        <% categories.forEach((category) => { %>
+                            <option value="<%= category.id %>"><%= category.title %></option>
+                            <!-- Neste caso usamos o value para acessar o id da categoria. -->
+                        <% }) %>
+                    </select><br>
+                    <button type="submit" class="btn btn-dark">Cadastrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<%- include('../../partials/footer.ejs') %>
+<script src="/tinymce/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        language: 'pt_BR',
+        selector: 'textarea#article',  // change this value according to your HTML
+        plugins: [
+                'advlist',
+                'autolink',
+                'link',
+                'image',
+                'lists',
+                'preview',
+                'searchreplace',
+                'wordcount',
+                'fullscreen',
+                'insertdatetime',
+                'media',
+                'save',
+                'table',
+                'emoticons',
+                ],
+        a_plugin_option: true,
+        a_configuration_option: 400
+    });
+</script>
